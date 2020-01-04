@@ -1,0 +1,8 @@
+{
+  "domain": "http_legacy_auth",
+  "name": "http_legacy_auth",
+  "documentation": "",
+  "dependencies": [],
+  "codeowners": [],
+  "requirements": []
+}
