@@ -1,7 +1,9 @@
 import asyncio
 from aiohttp.web import middleware
+from aiohttp.frozenlist import FrozenList
 import logging
 
+from homeassistant.components.http import HomeAssistantHTTP
 from homeassistant.components.http.const import KEY_AUTHENTICATED, KEY_REAL_IP
 
 # The domain of your component. Should be equal to the name of your component.
@@ -31,6 +33,10 @@ def async_setup(hass, config):
 
         return await handler(request)
 
-    hass.http.app.middlewares.append(auth_middleware);
-
+    # NOTE: This hack is an accident waiting to happen, however HASS
+    # doesn't seem to offer a way to add a middleware to the http
+    # component. aiohttp "freezes" app state after start so it's
+    # impossible to use public API to add a middleware there directly.
+    hass.http.app._middlewares = FrozenList([*hass.http.app.middlewares, auth_middleware])
+    hass.http.app._middlewares_handlers = tuple(hass.http.app._prepare_middleware())
     return True
