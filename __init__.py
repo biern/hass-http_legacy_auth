@@ -4,7 +4,7 @@ from aiohttp.frozenlist import FrozenList
 import logging
 
 from homeassistant.components.http import HomeAssistantHTTP
-from homeassistant.components.http.const import KEY_AUTHENTICATED, KEY_REAL_IP
+from homeassistant.components.http.const import KEY_AUTHENTICATED
 
 # The domain of your component. Should be equal to the name of your component.
 DOMAIN = "http_legacy_auth"
@@ -24,7 +24,7 @@ def async_setup(hass, config):
             auth_type = 'api_password'
             _LOGGER.debug(
                 "Authenticated %s for %s using %s",
-                request[KEY_REAL_IP],
+                request,
                 request.path,
                 auth_type,
             )
