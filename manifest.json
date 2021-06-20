@@ -1,4 +1,5 @@
 {
+  "version": "1.0.0",
   "domain": "http_legacy_auth",
   "name": "http_legacy_auth",
   "documentation": "",
